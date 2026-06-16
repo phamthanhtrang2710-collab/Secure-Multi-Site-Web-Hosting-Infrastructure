@@ -23,7 +23,8 @@ WebServer:
           ├── site2db
           └── site2user
 
-View Architecture Diagram here: 
+View Architecture Diagram: <img width="1536" height="1024" alt="Secure-multi-site-web-hosting-architecture" src="https://github.com/user-attachments/assets/718e8519-b0c1-41c1-8c54-b8dde4e9af13" />
+
 
 # Project Highlights
 
@@ -89,4 +90,23 @@ Diagnose and resolve issues related to:
 
 * Issues related to SSL/TLS configuration.
 
+# Security Principle Applied
+
+* Each website uses its own database and database user account.
+
+* The root account is not used for applications to minimize security risks.
+
+* Database access is granted according to the Principle of Least Privilege, meaning each account is only granted the necessary permissions to perform its function.
+
+# SSL/TLS Configuration
+
+HTTPS has been implemented using SSL certificates.
+
+Security controls include:
+
+* Data encryption using SSL/TLS to protect information transmitted between the server and users.
+
+* Configuring a separate HTTPS VirtualHost for each website.
+
+* Setting up automatic redirection from HTTP to HTTPS to ensure all connections are securely encrypted.
 
