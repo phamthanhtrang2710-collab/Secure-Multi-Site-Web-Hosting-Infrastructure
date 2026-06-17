@@ -1,5 +1,5 @@
 # Secure Multi-Site Web Hosting Infrastructure
-In this project, I will focus on building a secure multi-site web hosting environment using the LAMP stack on a virtualized Linux system, deploying WordPress websites with Apache VirtualHosts, configuring HTTPS with SSL, and managing the database with appropriate access permissions.
+In this project, I will build a secure multi-website hosting system on an Ubuntu server. The system uses Apache VirtualHosts to deploy and operate two independent WordPress websites, mine.com and minephp.com, each configured with a MariaDB database and a separate database account to ensure security and efficient management. Besides, SSL/TLS will be implemented to enable HTTPS, encrypting data transmitted between users and the server, thus enhancing system security.
 # Architecture
 WebServer:
       
@@ -13,15 +13,15 @@ WebServer:
       │
       ├── SSL/TLS (Security)
       │
-      ├── site1.local
+      ├── mine.com
       │   ├── WordPress (Content Management System)
-      │   ├── site1db
-      │   └── site1user
+      │   ├── minedb
+      │   └── mineuser
       │
-      └── site2.local
+      └── minephp.com
           ├── WordPress
-          ├── site2db
-          └── site2user
+          ├── minephpdb
+          └── minephpuser
 
 View Architecture Diagram: <img width="1536" height="1024" alt="Secure-multi-site-web-hosting-architecture" src="https://github.com/user-attachments/assets/718e8519-b0c1-41c1-8c54-b8dde4e9af13" />
 
@@ -30,7 +30,7 @@ View Architecture Diagram: <img width="1536" height="1024" alt="Secure-multi-sit
 
 ## Multi-site Hosting
 
-* Deploy and operate two independent WordPress websites on the same Ubuntu server.
+* Deploy and operate two WordPress websites on the same Ubuntu server.
 
 * Configure Apache VirtualHosts to separate the configuration of each website, ensuring independence and ease of management.
 
