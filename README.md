@@ -1,5 +1,34 @@
 # Secure Multi-Site Web Hosting Infrastructure
-In this project, I will build a secure multi-website hosting system on an Ubuntu server. The system uses Apache VirtualHosts to deploy and operate two independent WordPress websites, mine.com and minephp.com, each configured with a MariaDB database and a separate database account to ensure security and efficient management. Besides, SSL/TLS will be implemented to enable HTTPS, encrypting data transmitted between users and the server, thus enhancing system security.
+Before undertaking this project, I wondered, "How can a business host multiple websites on a single server while ensuring security, isolation, and cost-effectiveness?"
+
+That's the main reason I started this project, by designing and deploying a secure multi-site hosting environment on an Ubuntu server using the LAMP stack (including Linux, Apache, MariaDB, and PHP). This solution hosts two independent WordPress websites, mine.com and minephp.com, via Apache VirtualHosts, with a MariaDB database and separate database users for each site.
+
+HTTPS is enabled using SSL/TLS to secure data transmission and protect user communications. This project highlights my practical experience in Linux system administration, web hosting, database security, and real-world infrastructure deployment.
+
+Continue exploring the sections below to learn how I designed, deployed, and secured this multi-website hosting environment.
+
+# Project Objectives
+
+* Fully deploy a LAMP Stack environment.
+
+* Host multiple websites on a single Linux server.
+
+* Configure Apache VirtualHosts to isolate each website.
+
+* Deploy WordPress to each website.
+
+* Apply SSL/TLS encryption to secure connections.
+
+* Redirect all HTTP traffic to HTTPS.
+
+* Implement database security measures according to best practices.
+
+* Configure file and directory access permissions on Linux.
+
+* Test and verify the functionality and availability of services.
+
+* Document the deployment process and troubleshooting steps thoroughly.
+
 # Architecture
 WebServer:
       
@@ -25,88 +54,25 @@ WebServer:
 
 View Architecture Diagram: <img width="1536" height="1024" alt="Secure-multi-site-web-hosting-architecture" src="https://github.com/user-attachments/assets/718e8519-b0c1-41c1-8c54-b8dde4e9af13" />
 
+# Website Configuration
 
-# Project Highlights
+| Configuration | Website 1 | Website 2 |
+|---------------|-----------|-----------|
+| Domain | mine.com | minephp.com |
+| Platform | WordPress | WordPress |
+| Document Root | /var/www/mine.com | /var/www/minephp.com |
+| Database | mine | minephp |
+| Database User | mineuser | minephpuser |
 
-## Multi-site Hosting
+# Apache VirtualHost
 
-* Deploy and operate two WordPress websites on the same Ubuntu server.
+## Http VitualHost 
 
-* Configure Apache VirtualHosts to separate the configuration of each website, ensuring independence and ease of management.
+<VirtualHost *:80>
+    ServerName mine.com
+    ServerAlias www.mine.com
 
-## LAMP Stack Deployment
+    Redirect permanent / https://mine.com/
 
-Install and fully administer the components of the LAMP model, including:
-
-* Linux
-
-* Apache
-
-* MariaDB
-
-* PHP
-
-## HTTPs Implementation
-
-* Enable SSL/TLS encryption to secure the connection between users and the server.
-
-* Configure HTTPS VirtualHosts for each website.
-
-* Set up automatic redirection from HTTP to HTTPS to ensure all access uses a secure connection.
-
-## Database Security
-
-* Create a separate database for each website.
-
-* Create dedicated database user accounts for each website.
-
-* Grant only necessary access permissions according to the principle of least privilege.
-
-## Linux Administration
-
-* Manage system services using systemctl.
-
-* Configure file and directory ownership and appropriate access permissions.
-
-* Install and maintain necessary software packages to support server operation.
-
-## Security Hardening
-
-* Implement strict file access permissions to restrict unauthorized access.
-
-* Disable directory indexing on the web server.
-
-* Configure Uncomplicated Firewall (UFW) rules to control network traffic to and from the system.
-
-## Troubleshooting
-
-Diagnose and resolve issues related to:
-
-* Apache configuration.
-
-* WordPress deployment.
-
-* Database connection errors.
-
-* Issues related to SSL/TLS configuration.
-
-# Security Principle Applied
-
-* Each website uses its own database and database user account.
-
-* The root account is not used for applications to minimize security risks.
-
-* Database access is granted according to the Principle of Least Privilege, meaning each account is only granted the necessary permissions to perform its function.
-
-# SSL/TLS Configuration
-
-HTTPS has been implemented using SSL certificates.
-
-Security controls include:
-
-* Data encryption using SSL/TLS to protect information transmitted between the server and users.
-
-* Configuring a separate HTTPS VirtualHost for each website.
-
-* Setting up automatic redirection from HTTP to HTTPS to ensure all connections are securely encrypted.
-
+    DocumentRoot /var/www/mine.com
+</VirtualHost>
