@@ -65,14 +65,84 @@ View Architecture Diagram: <img width="1536" height="1024" alt="Secure-multi-sit
 | Database User | mineuser | minephpuser |
 
 # Apache VirtualHost
+Create a virtualHost configuaration file for website 1 named mine.com.conf:
 
-## Http VitualHost 
+      sudo vim /etc/apache2/sites-available/mine.com.conf
 
-<VirtualHost *:80>
+## Http VitualHost Website 1
+    
+    <VirtualHost *:80>
     ServerName mine.com
     ServerAlias www.mine.com
-
     Redirect permanent / https://mine.com/
-
     DocumentRoot /var/www/mine.com
-</VirtualHost>
+    </VirtualHost>
+
+## Https VirtualHost Website 1
+      
+    <VirtualHost *:443>
+    ServerName mine.com
+    ServerAlias www.mine.com
+    DocumentRoot /var/www/mine.com
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+    </VirtualHost>
+
+## Http and Https Website 2
+Likewise, create VirtualHost file for minephp.com
+
+    <VirtualHost *:80>
+    ServerName minephp.com
+    ServerAlias www.minephp.com
+    Redirect permanent / https://minephp.com/
+    DocumentRoot /var/www/minephp.com
+
+    ErrorLog ${APACHE_LOG_DIR}/minephp-error.log
+    CustomLog ${APACHE_LOG_DIR}/minephp-access.log combined
+    </VirtualHost>
+    
+    <VirtualHost *:443>
+    ServerName minephp.com
+    ServerAlias www.minephp.com
+    DocumentRoot /var/www/minephp.com
+
+    SSLEngine on
+    SSLCertificateFile /etc/ssl/certs/ssl-cert-snakeoil.pem
+    SSLCertificateKeyFile /etc/ssl/private/ssl-cert-snakeoil.key
+
+    ErrorLog ${APACHE_LOG_DIR}/minephp-ssl-error.log
+    CustomLog ${APACHE_LOG_DIR}/minephp-ssl-access.log combined
+    </VirtualHost>
+
+# Database Security Design
+
+To minimize security risks, ensure isolation between hosted websites, enhance administrative control, and protect server-side data, the database architecture for both websites should be implemented according to the following security principles:
+
+      - One website - one database, one website - one database user
+      - Appplications don't use MariaDB root account
+      - Necessary database access should be follow Principle of Least Privilege
+    
+DB and user for mine.com
+
+      CREATE DATABASE mine;
+      
+      CREATE USER 'mineuser'@'localhost' IDENTIFIED BY 'StrongPassword1!';
+      
+      GRANT ALL PRIVILEGES ON mine.* TO 'mineuser'@'localhost';
+      
+      FLUSH PRIVILEGES;
+
+Db and user for minephp.com
+
+      CREATE DATABASE minephp;
+      
+      CREATE USER 'minephpuser'@'localhost' IDENTIFIED BY 'StrongPassword2!';
+      
+      GRANT ALL PRIVILEGES ON minephp.* TO 'minephpuser'@'localhost';
+      
+      FLUSH PRIVILEGES;
+
+
+
