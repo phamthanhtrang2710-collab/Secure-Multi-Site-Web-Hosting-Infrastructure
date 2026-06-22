@@ -143,6 +143,28 @@ Db and user for minephp.com
       GRANT ALL PRIVILEGES ON minephp.* TO 'minephpuser'@'localhost';
       
       FLUSH PRIVILEGES;
+ # File Permissions
+Applied Linux ownership and permission settings to WordPress directories.
+
+      sudo chown -R www-data:www-data /var/www
+      sudo chmod -R 755 /var/www
+
+# Validation
+
+## Apache
+      apachectl configtest
+
+## VirtualHost
+      apachectl -S
+
+## Database
+      systemctl status mariadb
+## HTTP -> HTTPS Redirection test
+      lynx http://mine.com
+and
+
+      lynx http://minephp.com/index.php
+
 
 
 
